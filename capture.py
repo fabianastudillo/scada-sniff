@@ -16,7 +16,7 @@ def manejar_paquete(packet):
     #    print("Datos del paquete (puede incluir cabecera Modbus):", datos)
     if mb.ModbusADUResponse in packet:
         pkt.show()
-    else if mb.ModbusADURequest in packet:
+    elif mb.ModbusADURequest in packet:
         pkt.show()
 
 # Iniciar la captura
