@@ -2,3 +2,4 @@ scapy
 pyModbusTCP
 graypy
 logging-gelf
+gelfformatter
