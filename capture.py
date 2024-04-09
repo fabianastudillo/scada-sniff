@@ -15,9 +15,9 @@ def manejar_paquete(packet):
     #    datos = packet[TCP].payload.load
     #    print("Datos del paquete (puede incluir cabecera Modbus):", datos)
     if mb.ModbusADUResponse in packet:
-        pkt.show()
+        packet.show()
     elif mb.ModbusADURequest in packet:
-        pkt.show()
+        packet.show()
 
 # Iniciar la captura
 print("Iniciando la captura de paquetes Modbus en el puerto 502...")
