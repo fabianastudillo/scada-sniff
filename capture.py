@@ -2,8 +2,8 @@ from scapy.all import sniff, TCP
 from scapy.layers.inet import IP
 import scapy.contrib.modbus as mb
 import logging
-from logging_gelf.formatters import GELFFormatter
-from logging_gelf.handlers import GELFTCPSocketHandler
+from gelfformatter import GelfFormatter
+from graypy import GELFUDPHandler
 
 # Definir el filtro de captura para el puerto 502 de Modbus
 def filtro_modbus(packet):
@@ -27,7 +27,7 @@ def manejar_paquete(packet):
 logger = logging.getLogger("gelf")
 logger.setLevel(logging.DEBUG)
 
-handler = GELFTCPSocketHandler(host="127.0.0.1", port=5514)
+handler = GELFUDPHandler(host="127.0.0.1", port=5514)
 handler.setFormatter(GELFFormatter(null_character=True))
 logger.addHandler(handler)
 # Iniciar la captura
