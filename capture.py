@@ -1,4 +1,5 @@
 from scapy.all import sniff, TCP
+from scapy.layers.iner import IP
 
 # Definir el filtro de captura para el puerto 502 de Modbus
 def filtro_modbus(packet):
