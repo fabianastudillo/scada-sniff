@@ -1,7 +1,9 @@
 from scapy.all import sniff, TCP
 from scapy.layers.inet import IP
 import scapy.contrib.modbus as mb
-
+import logging
+from logging_gelf.formatters import GELFFormatter
+from logging_gelf.handlers import GELFTCPSocketHandler
 
 # Definir el filtro de captura para el puerto 502 de Modbus
 def filtro_modbus(packet):
@@ -15,10 +17,19 @@ def manejar_paquete(packet):
     #    datos = packet[TCP].payload.load
     #    print("Datos del paquete (puede incluir cabecera Modbus):", datos)
     if mb.ModbusADUResponse in packet:
-        packet.show()
+        logger.debug("ADUResponse IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
+        #packet.show()
     elif mb.ModbusADURequest in packet:
-        packet.show()
+        logger.debug("ADURequest IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
+        #packet.show()
 
+# Set logs
+logger = logging.getLogger("gelf")
+logger.setLevel(logging.DEBUG)
+
+handler = GELFTCPSocketHandler(host="127.0.0.1", port=5514)
+handler.setFormatter(GELFFormatter(null_character=True))
+logger.addHandler(handler)
 # Iniciar la captura
 print("Iniciando la captura de paquetes Modbus en el puerto 502...")
 sniff(prn=manejar_paquete, lfilter=filtro_modbus, iface="ens36", store=False)
