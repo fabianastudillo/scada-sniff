@@ -12,15 +12,17 @@ def filtro_modbus(packet):
 # Función para manejar cada paquete capturado
 def manejar_paquete(packet):
     # Asumiendo que es un paquete Modbus/TCP, puedes extraer campos específicos aquí
-    print(f"Paquete capturado de {packet[IP].src} a {packet[IP].dst}")
+    #print(f"Paquete capturado de {packet[IP].src} a {packet[IP].dst}")
     #if len(packet[TCP].payload):
     #    datos = packet[TCP].payload.load
     #    print("Datos del paquete (puede incluir cabecera Modbus):", datos)
     if mb.ModbusADUResponse in packet:
-        logger.debug("ADUResponse IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
+        #logger.debug("ADUResponse IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
+        logger.debug("ADUResponse IP.src=%s IP.dst=%s", packet[IP].src, packet[IP].dst)
         #packet.show()
     elif mb.ModbusADURequest in packet:
-        logger.debug("ADURequest IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
+        #logger.debug("ADURequest IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
+        logger.debug("ADURequest IP.src=%s IP.dst=%s", packet[IP].src, packet[IP].dst)
         #packet.show()
 
 # Set logs
@@ -31,5 +33,5 @@ handler = GELFUDPHandler(host="192.168.222.100", port=5514)
 #handler.setFormatter(GELFFormatter(null_character=True))
 logger.addHandler(handler)
 # Iniciar la captura
-print("Iniciando la captura de paquetes Modbus en el puerto 502...")
+#print("Iniciando la captura de paquetes Modbus en el puerto 502...")
 sniff(prn=manejar_paquete, lfilter=filtro_modbus, iface="ens36", store=False)
