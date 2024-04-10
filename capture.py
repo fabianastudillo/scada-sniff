@@ -33,5 +33,5 @@ handler = GELFUDPHandler(host="192.168.222.100", port=5514)
 #handler.setFormatter(GELFFormatter(null_character=True))
 logger.addHandler(handler)
 # Iniciar la captura
-print("Iniciando la captura de paquetes Modbus en el puerto 502...")
+#print("Iniciando la captura de paquetes Modbus en el puerto 502...")
 sniff(prn=manejar_paquete, lfilter=filtro_modbus, iface="ens36", store=False)
