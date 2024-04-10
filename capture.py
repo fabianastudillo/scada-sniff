@@ -12,7 +12,7 @@ def filtro_modbus(packet):
 # Función para manejar cada paquete capturado
 def manejar_paquete(packet):
     # Asumiendo que es un paquete Modbus/TCP, puedes extraer campos específicos aquí
-    print(f"Paquete capturado de {packet[IP].src} a {packet[IP].dst}")
+    #print(f"Paquete capturado de {packet[IP].src} a {packet[IP].dst}")
     #if len(packet[TCP].payload):
     #    datos = packet[TCP].payload.load
     #    print("Datos del paquete (puede incluir cabecera Modbus):", datos)
