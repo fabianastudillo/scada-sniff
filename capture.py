@@ -2,8 +2,18 @@ from scapy.all import sniff, TCP
 from scapy.layers.inet import IP
 import scapy.contrib.modbus as mb
 import logging
-#from gelfformatter import GelfFormatter
 from graypy import GELFUDPHandler
+
+# Diccionario de mapeo de direcciones IP a nombres
+mapeo_ips = {
+    "192.168.222.9": "PLC apis1",
+    "192.168.222.11": "PLC1 apis2",
+    "192.168.222.12": "PLC2 apis2",
+    "192.168.222.13": "PLC3 apis2",
+    "192.168.222.14": "PLC4 apis2",
+    "192.168.222.15": "PLC apis3",
+    "192.168.222.55": "SCADA"
+}
 
 # Definir el filtro de captura para el puerto 502 de Modbus
 def filtro_modbus(packet):
@@ -11,27 +21,28 @@ def filtro_modbus(packet):
 
 # Función para manejar cada paquete capturado
 def manejar_paquete(packet):
-    # Asumiendo que es un paquete Modbus/TCP, puedes extraer campos específicos aquí
-    #print(f"Paquete capturado de {packet[IP].src} a {packet[IP].dst}")
-    #if len(packet[TCP].payload):
-    #    datos = packet[TCP].payload.load
-    #    print("Datos del paquete (puede incluir cabecera Modbus):", datos)
+    tipo_mensaje = None
     if mb.ModbusADUResponse in packet:
-        #logger.debug("ADUResponse IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
-        logger.debug("ADUResponse IP.src=%s IP.dst=%s", packet[IP].src, packet[IP].dst)
-        #packet.show()
+        tipo_mensaje = "ADUResponse"
     elif mb.ModbusADURequest in packet:
-        #logger.debug("ADURequest IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
-        logger.debug("ADURequest IP.src=%s IP.dst=%s", packet[IP].src, packet[IP].dst)
-        #packet.show()
+        tipo_mensaje = "ADURequest"
+
+    ipsrc = packet[IP].src
+    ipdest = packet[IP].dst
+
+    # Obtener el nombre asociado a la dirección IP de origen y destino
+    nombre_ipsrc = mapeo_ips.get(ipsrc, "Desconocido")
+    nombre_ipdest = mapeo_ips.get(ipdest, "Desconocido")
+
+    if tipo_mensaje:
+        logger.debug("Mensaje Modbus: Tipo=%s, IP_SRC=%s(%s), IP_DST=%s(%s)", tipo_mensaje, ipsrc, nombre_ipsrc, ipdest, nombre_ipdest)
 
 # Set logs
 logger = logging.getLogger("gelf")
 logger.setLevel(logging.DEBUG)
 
 handler = GELFUDPHandler(host="192.168.222.100", port=5514)
-#handler.setFormatter(GELFFormatter(null_character=True))
 logger.addHandler(handler)
+
 # Iniciar la captura
-#print("Iniciando la captura de paquetes Modbus en el puerto 502...")
 sniff(prn=manejar_paquete, lfilter=filtro_modbus, iface="ens36", store=False)
