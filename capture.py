@@ -5,7 +5,7 @@ import logging
 #from gelfformatter import GelfFormatter
 from graypy import GELFUDPHandler
 
-# Definir el filtro de captura para el puerto 502 de Modbus
+## Definir el filtro de captura para el puerto 502 de Modbus
 def filtro_modbus(packet):
     return TCP in packet and (packet[TCP].sport == 502 or packet[TCP].dport == 502)
 
