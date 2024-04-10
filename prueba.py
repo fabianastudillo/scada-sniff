@@ -18,10 +18,10 @@ def manejar_paquete(packet):
     #    print("Datos del paquete (puede incluir cabecera Modbus):", datos)
     if mb.ModbusADUResponse in packet:
         logger.debug("ADUResponse IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
-        packet.show()
+        #packet.show()
     elif mb.ModbusADURequest in packet:
         logger.debug("ADURequest IP.src={packet[IP].src} IP.dst={packet[IP].dst}")
-        packet.show()
+        #packet.show()
 
 # Set logs
 logger = logging.getLogger("gelf")
