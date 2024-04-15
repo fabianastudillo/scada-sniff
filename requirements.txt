@@ -3,3 +3,4 @@ pyModbusTCP
 graypy
 logging-gelf
 gelf-formatter
+psutils
