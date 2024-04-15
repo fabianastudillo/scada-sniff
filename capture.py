@@ -97,7 +97,7 @@ def manejar_paquete(packet):
 
     # Aquí puedes enviar los contadores a Graylog si lo deseas
     # Por ejemplo:
-    # logger.debug("ADUResponses: %d, ADUQueries: %d", num_adu_responses, num_adu_queries)
+    logger.debug("ADUResponses: %d, ADUQueries: %d", num_adu_responses, num_adu_queries)
 
 # Set logs
 logger = logging.getLogger("gelf")
