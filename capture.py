@@ -75,13 +75,13 @@ def filtro_modbus(packet):
 
 # Función para manejar cada paquete capturado
 def manejar_paquete(packet):
-    global num_adu_responses, num_adu_queries
+    global num_adu_responses, num_adu_request
     
     if mb.ModbusADUResponse in packet:
         num_adu_responses += 1
         tipo_mensaje = "ADUResponse"
     elif mb.ModbusADURequest in packet:  # Cambio aquí a ModbusADUQuery
-        num_adu_queries += 1
+        num_adu_request += 1
         tipo_mensaje = "ADURequest"      # Y aquí a ADUQuery
     else:
         return
@@ -97,7 +97,7 @@ def manejar_paquete(packet):
 
     # Aquí puedes enviar los contadores a Graylog si lo deseas
     # Por ejemplo:
-    logger.debug("ADUResponses: %d, ADUQueries: %d", num_adu_responses, num_adu_queries)
+    logger.debug("ADUResponses: %d, ADURequest: %d", num_adu_responses, num_adu_request)
 
 # Set logs
 logger = logging.getLogger("gelf")
