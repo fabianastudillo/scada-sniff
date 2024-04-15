@@ -41,7 +41,7 @@ def manejar_paquete(packet):
 logger = logging.getLogger("gelf")
 logger.setLevel(logging.DEBUG)
 
-handler = GELFUDPHandler(host="192.168.222.100", port=5514)
+handler = GELFUDPHandler(host="192.168.222.101", port=5514)
 logger.addHandler(handler)
 
 # Iniciar la captura
