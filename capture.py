@@ -110,5 +110,5 @@ logger.addHandler(handler)
 sniff(prn=manejar_paquete, lfilter=filtro_modbus, iface="ens36", store=False)
 
 # Al final de la ejecución, puedes imprimir los contadores si lo deseas
-print("ADUResponses:", num_adu_responses)
-print("ADURequests:", num_adu_requests)
+#print("ADUResponses:", num_adu_responses)
+#print("ADURequests:", num_adu_requests)
