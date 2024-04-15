@@ -3,7 +3,7 @@
 # import scapy.contrib.modbus as mb
 # import logging
 # from graypy import GELFUDPHandler
-
+#
 # # Diccionario de mapeo de direcciones IP a nombres
 # mapeo_ips = {
 #     "192.168.222.9": "PLC apis1",
