@@ -80,9 +80,9 @@ def manejar_paquete(packet):
     if mb.ModbusADUResponse in packet:
         num_adu_responses += 1
         tipo_mensaje = "ADUResponse"
-    elif mb.ModbusADUQuery in packet:  # Cambio aquí a ModbusADUQuery
+    elif mb.ModbusADURequest in packet:  # Cambio aquí a ModbusADUQuery
         num_adu_queries += 1
-        tipo_mensaje = "ADUQuery"      # Y aquí a ADUQuery
+        tipo_mensaje = "ADURequest"      # Y aquí a ADUQuery
     else:
         return
 
