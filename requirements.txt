@@ -3,5 +3,5 @@ pyModbusTCP
 graypy
 logging-gelf
 gelf-formatter
-psutils
+psutil
 time
