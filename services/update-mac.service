@@ -1,9 +1,0 @@
-[Unit]
-Description=Update MAC Address
-
-[Service]
-Type=oneshot
-ExecStart=/usr/local/bin/update_mac.sh
-
-[Install]
-WantedBy=multi-user.target
