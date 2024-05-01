@@ -1,0 +1,3 @@
+docker pull mongo:latest
+docker pull opensearchproject/opensearch:latest
+docker pull graylog/graylog:5.2
